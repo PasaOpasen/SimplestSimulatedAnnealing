@@ -7,24 +7,24 @@ import matplotlib.pyplot as plt
 
 class SimulatedAnnealing:
     
-    def __init__(self, minimized_function, dimention):
+    def __init__(self, minimized_function, dimension):
         """
         Parameters
         ----------
         minimized_function : function np.ndarray -> float/int
             function must be minimized.
-        dimention : int>0
-            dimention of solution.
+        dimension : int>0
+            dimension of solution.
 
         Returns
         -------
         None.
 
         """
-        assert (dimention>0 and type(dimention) == int), f"dimention should be int and more than 0, not {dimention}"
+        assert (dimension>0 and type(dimension) == int), f"dimension should be int and more than 0, not {dimension}"
 
         self.f = minimized_function
-        self.dim = dimention
+        self.dim = dimension
 
     def __start_coolings(self, cooling, start_temperature):
         temp_type = type(start_temperature)

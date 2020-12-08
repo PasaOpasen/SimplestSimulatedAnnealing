@@ -19,14 +19,14 @@ def Rastrigin(arr):
 
 dim = 5
 
-std = 0.5
+mut = simple_continual_mutation(std = 0.5)
 
 
 model = SimulatedAnnealing(Rastrigin, dim)
 
 best_solution, best_val = model.run(
     start_solution = np.random.uniform(-5, 5, dim),
-    mutation = simple_continual_mutation(std),
+    mutation = mut,
     cooling = Cooling.exponential(0.9), 
     start_temperature = 100, 
     max_function_evals = 1000, 

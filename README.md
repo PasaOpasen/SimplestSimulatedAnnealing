@@ -8,7 +8,7 @@ Simplest implementation of simulated annealing method
   - [Parameters of method](#parameters-of-method)
   - [Temperature regimes](#temperature-regimes)
   - [About mutation](#about-mutation)
-  - [Examples](#examples)
+- [Examples](#examples)
 
 ## Idea of method
 
@@ -27,10 +27,57 @@ This is the evolutionary algorithm for *function minimization*. Steps of algorit
 
 ## Simple usage
 
+Import packages:
+
+```python
+import math
+import numpy as np
+
+from SimplestSimulatedAnnleaning import SimulatedAnnealing, Cooling, simple_continual_mutation
+```
+
+Determine minimized function (Rastrigin):
+
+```python
+def Rastrigin(arr):
+    return 10*arr.size+np.sum(arr**2) - 10*np.sum(np.cos(2*math.pi*arr))
+
+dim = 5
+```
+We will use simplest gauss mutation:
+
+```python
+mut = simple_continual_mutation(std = 0.5)
+```
+
+Create model object (set function and dimension):
+
+```python
+model = SimulatedAnnealing(Rastrigin, dim)
+```
+
+Start searching and see report:
+
+```python
+best_solution, best_val = model.run(
+    start_solution = np.random.uniform(-5, 5, dim),
+    mutation = mut,
+    cooling = Cooling.exponential(0.9), 
+    start_temperature = 100, 
+    max_function_evals = 1000, 
+    max_iterations_without_progress = 100, 
+    step_for_reinit_temperature = 80
+    )
+
+model.plot_report(save_as = 'simple_example.png')
+```
+
+![](tests/simple_example.png)
+
 ## Parameters of method
 
 ## Temperature regimes
 
 ## About mutation
 
-## Examples
+# Examples
