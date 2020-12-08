@@ -35,8 +35,8 @@ best_solution, best_val = model.run(
         ], 
     start_temperature = 100, 
     max_function_evals = 1000, 
-    max_iterations_without_progress = 100, 
-    step_for_reinit_temperature = 80,
+    max_iterations_without_progress = 250, 
+    step_for_reinit_temperature = 90,
     reinit_from_best = False
     )
 
