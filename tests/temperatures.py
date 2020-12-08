@@ -48,7 +48,7 @@ SimulatedAnnealing.plot_temperature(cooling, temperature, iterations = 100, save
 
 
 
-# and we can set own temperature and cooling for each dimention
+# and we can set own temperature and cooling for each dimention!
 
 temperature = [100, 125, 150]
 cooling = [
