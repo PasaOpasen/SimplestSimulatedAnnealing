@@ -6,16 +6,16 @@ with open("README.md", "r") as fh:
 
 
 setuptools.setup(
-    name="DiscreteHillClimbing", 
-    version="1.0.2",
+    name="SimplestSimulatedAnnealing", 
+    version="1.0.0",
     author="Demetry Pascal",
     author_email="qtckpuhdsa@gmail.com",
     maintainer = ['Demetry Pascal'],
     description="An easy implementation of Hill Climbing algorithm for tasks with discrete variables in Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/PasaOpasen/DiscreteHillClimbing",
-    keywords=['solve', 'optimization', 'problem', 'fast', 'combinatorial', 'easy'],
+    url="https://github.com/PasaOpasen/SimplestSimulatedAnnealing",
+    keywords=['solve', 'optimization', 'problem', 'fast', 'combinatorial', 'easy', 'evolution', 'continual', 'simulated-annealing'],
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

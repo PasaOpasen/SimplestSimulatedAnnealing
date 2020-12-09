@@ -103,10 +103,16 @@ best_solution, best_val = model.run(
     mutation = mut,
     cooling = Cooling.exponential(0.9), 
     start_temperature = 100, 
-    max_function_evals = 1000, 
-    max_iterations_without_progress = 100, 
+    max_function_evals = 15000, 
+    max_iterations_without_progress = 2000, 
     step_for_reinit_temperature = 80,
+    reinit_from_best = True,
     seed = SEED
     )
 
 model.plot_report(save_as = 'best_salesman.png')
+
+
+plotData(best_solution, f'result solution (score = {round(best_val, 2)})','salesman_result.png')
+
+
