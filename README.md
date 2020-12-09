@@ -1,3 +1,6 @@
+[![PyPI
+version](https://badge.fury.io/py/SimplestSimulatedAnnealing.svg)](https://pypi.org/project/SimplestSimulatedAnnealing/)
+
 # Simplest simulated annealing
 
 Simplest implementation of simulated annealing method

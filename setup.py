@@ -7,11 +7,11 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="SimplestSimulatedAnnealing", 
-    version="1.0.0",
+    version="1.0.1",
     author="Demetry Pascal",
     author_email="qtckpuhdsa@gmail.com",
     maintainer = ['Demetry Pascal'],
-    description="An easy implementation of Hill Climbing algorithm for tasks with discrete variables in Python",
+    description="Flexible implementation of Simulated Annealing algorithm for function minimization",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/PasaOpasen/SimplestSimulatedAnnealing",
