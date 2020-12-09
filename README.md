@@ -94,7 +94,8 @@ model.run(start_solution,
           max_function_evals = 1000, 
           max_iterations_without_progress = 250, 
           step_for_reinit_temperature = 90,
-          reinit_from_best = False)
+          reinit_from_best = False,
+          seed = None)
 ```
 
 Where:
@@ -108,12 +109,14 @@ Where:
     This function will create new solutions from existing. [See also](#about-mutation)
 
 * `cooling` : cooling function / functions list. Cooling function or a list of ones. [See](#temperature-regimes)
+
 * `start_temperature` : number or number array (list/tuple). Start temperatures. Can be one number or an array of numbers.
 
 * `max_function_evals` : int, optional. Maximum number of function evaluations. The default is 1000.
 * `max_iterations_without_progress` : int, optional. Maximum number of iterations without global progress. The default is 250.
 * `step_for_reinit_temperature` : int, optional. After this number of iterations without progress temperatures will be initialized as like start. The default is 90.
 * `reinit_from_best` : boolean, optional. Start algorithm from best solution after reinit temperatures (or from last current solution). The default is False.
+* `seed` : int/None, optional. Random seed (if needed)
 
 ## Temperature regimes
 
@@ -126,11 +129,8 @@ def func(T_last, T0, k):
     # some code
     return T_new
 ```
-where:
 
-* `T_last` - last temperature (int/float)
-* `T0` - start temperature (int/float)
-* `k` - iteration number (int > 0)
+Here `T_last` (int/float) is the temperature value from previous iteration, `T0` (int/float) is the start temperature and `k` (int > 0) is the number of iteration. U should use some of this information to create new temperature `T_new`. 
 
 It's highly recommended to build your function to create only positive temperature. 
 
@@ -273,21 +273,76 @@ Mutation function is the most important parameter. It determines the behavior of
 I recommend to count these principles when creating `mut` function:
 
 1. mutant solution should be random but "close" to current solution
-2. mutant solution should be closer as the temperature decreases 
+2. mutant solution usually should be closer as the temperature decreases 
 
 Let's recall the structure of `mut`:
 
 ```python
-def mut(T_last, T0, k):
+def mut(x_as_array, temperature_as_array_or_one_number):
     # some code
-    return T_new
+    return new_x_as_array
 ```
+Here `x_as_array` is the current solution and `new_x_as_array` is the mutated solution (random and with same dim, as u remember). Also u should remember that `temperature_as_array_or_one_number` is *number* only for non-multicooling solution. Otherwise (when using several start temperatures of several coolings or both) it is *numpy array*. [See examples](#examples)
 
-Here `T_last` is the temperature value from previous iteration, `T0` is the start temperature and `k` is the number of iteration. U should use some of this information to create new solution `T_new`. Also u should remember that `T_last` and `T0` are *numbers* only for non-multicooling solution. Otherwise (when using several start temperatures of several coolings or both) they are *numpy arrays*. 
 
 
 # Examples
 
 ## Select best subset
+
+In this example I show how to select `k` objects from set with `n` objects which will minimize some function (in this example: absolute value of median):
+
+```python
+import numpy as np
+from SimplestSimulatedAnnleaning import SimulatedAnnealing, Cooling
+
+SEED = 3
+
+np.random.seed(SEED)
+
+Set = np.random.uniform(low = -15, high=5, size = 100) # all set
+
+dim = 10 # how many objects should we choose
+
+indexes = np.arange(Set.size)
+# minimized function -- subset with best |median|
+def min_func(arr):
+    return abs(np.median(Set[indexes[arr.astype(bool)]]))
+
+# zero vectors with 'dim' ones at random positions 
+start_solution = np.zeros(Set.size)
+start_solution[np.random.choice(indexes, dim, replace=False)] = 1
+
+# mutation function
+# temperature is the number cuz we will use only 1 cooling, but it's not necessary to use it)
+def mut(x_as_array, temperature_as_array_or_one_number):
+    mask_one = x_as_array == 1
+    mask_zero = np.logical_not(mask_one)
+
+    new_x_as_array = x_as_array.copy()
+    # replace some zeros with ones
+    new_x_as_array[np.random.choice(indexes[mask_one], 1, replace=False)] = 0
+    new_x_as_array[np.random.choice(indexes[mask_zero], 1, replace=False)] = 1
+
+    return new_x_as_array
+
+# creating a model
+model = SimulatedAnnealing(min_func, dim)
+
+# run search
+best_solution, best_val = model.run(
+    start_solution = start_solution,
+    mutation = mut,
+    cooling = Cooling.exponential(0.9), 
+    start_temperature = 100, 
+    max_function_evals = 1000, 
+    max_iterations_without_progress = 100, 
+    step_for_reinit_temperature = 80,
+    seed = SEED
+    )
+
+model.plot_report(save_as = 'best_subset.png')
+```
+![](tests/best_subset.png)
 
 ## Travelling salesman problem

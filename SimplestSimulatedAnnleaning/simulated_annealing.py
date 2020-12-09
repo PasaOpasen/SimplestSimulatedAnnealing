@@ -52,7 +52,8 @@ class SimulatedAnnealing:
             max_function_evals = 1000, 
             max_iterations_without_progress = 250, 
             step_for_reinit_temperature = 90,
-            reinit_from_best = False):
+            reinit_from_best = False,
+            seed = None):
         """
         Apply similated annealing method to minimized function
 
@@ -81,12 +82,19 @@ class SimulatedAnnealing:
         reinit_from_best : boolean, optional
             Start algorithm from best solution after reinit temperatures (or from last current solution). The default is False.
 
+        seed : int/None, optional
+            Random seed (if needed)
+
         Returns
         -------
         tuple(np.ndarray, number)
             pair of best solution and best score.
 
         """
+
+        if not (seed is None):
+            np.random.seed(seed)
+            random.seed(seed)
 
         cooling, start_temperature, make_decision_about_each_dim = self.__start_coolings(cooling, start_temperature) 
 
