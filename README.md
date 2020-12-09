@@ -10,9 +10,13 @@ Simplest implementation of simulated annealing method
     - [Pattern](#pattern)
     - [Available functions](#available-functions)
     - [Plot temperature](#plot-temperature)
+    - [Difference between coolings](#difference-between-coolings)
     - [Multiple coolings](#multiple-coolings)
+    - [Give a change to multiple coolings](#give-a-change-to-multiple-coolings)
   - [About mutation](#about-mutation)
 - [Examples](#examples)
+  - [Select best subset](#select-best-subset)
+  - [Travelling salesman problem](#travelling-salesman-problem)
 
 ## Idea of method
 
@@ -83,14 +87,14 @@ model.plot_report(save_as = 'simple_example.png')
 Main method of the package is `run()`. Let's check it's arguments:
 
 ```python
-model. run( start_solution, 
-            mutation, 
-            cooling, 
-            start_temperature, 
-            max_function_evals = 1000, 
-            max_iterations_without_progress = 250, 
-            step_for_reinit_temperature = 90,
-            reinit_from_best = False)
+model.run(start_solution, 
+          mutation, 
+          cooling, 
+          start_temperature, 
+          max_function_evals = 1000, 
+          max_iterations_without_progress = 250, 
+          step_for_reinit_temperature = 90,
+          reinit_from_best = False)
 ```
 
 Where:
@@ -207,9 +211,16 @@ SimulatedAnnealing.plot_temperature(cooling, temperature, iterations = 100, save
 ![](tests/diff_temp_and_cool.png)
 
 
+### Difference between coolings
+
+Why there are so many cooling regimes? For certain task one of them can be such better! In [this script](tests/regimes_temp.py) we can test different cooling for Rastring function:
+
+![](tests/regimes_temp.png)
+
+
 ### Multiple coolings
 
-It's amazing feature to **use different cooling and start temperature for each dimension**:
+It's amazing feature to **use different coolings and start temperatures for each dimension**:
 
 ```python
 import math
@@ -250,6 +261,33 @@ model.plot_report(save_as = 'different_coolings.png')
 ```
 ![](tests/different_coolings.png)
 
+### Give a change to multiple coolings
+
+Main reason to use multiple coolings is the specifying behavior of each dimension. For example, first dimension of space can be much wider than second dimension therefore it's better to use wider search for first dimension; u can produce it using special `mut` function, using different `start temperatures` and using different `coolings`.
+
+Another reason to use multiple coolings is the way of selection: for multiple coolings *selection between good and bad solutions applies by each dimension*. So, it increases chances to find better solution. 
+
 ## About mutation
 
+Mutation function is the most important parameter. It determines the behavior of creating new objects using information about current object and about temperature.
+I recommend to count these principles when creating `mut` function:
+
+1. mutant solution should be random but "close" to current solution
+2. mutant solution should be closer as the temperature decreases 
+
+Let's recall the structure of `mut`:
+
+```python
+def mut(T_last, T0, k):
+    # some code
+    return T_new
+```
+
+Here `T_last` is the temperature value from previous iteration, `T0` is the start temperature and `k` is the number of iteration. U should use some of this information to create new solution `T_new`. Also u should remember that `T_last` and `T0` are *numbers* only for non-multicooling solution. Otherwise (when using several start temperatures of several coolings or both) they are *numpy arrays*. 
+
+
 # Examples
+
+## Select best subset
+
+## Travelling salesman problem
