@@ -1,5 +1,8 @@
 [![PyPI
 version](https://badge.fury.io/py/SimplestSimulatedAnnealing.svg)](https://pypi.org/project/SimplestSimulatedAnnealing/)
+[![Downloads](https://pepy.tech/badge/SimplestSimulatedAnnealing)](https://pepy.tech/project/SimplestSimulatedAnnealing)
+[![Downloads](https://pepy.tech/badge/SimplestSimulatedAnnealing/month)](https://pepy.tech/project/SimplestSimulatedAnnealing)
+[![Downloads](https://pepy.tech/badge/SimplestSimulatedAnnealing/week)](https://pepy.tech/project/SimplestSimulatedAnnealing)
 
 # Simplest simulated annealing
 
