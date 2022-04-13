@@ -31,7 +31,9 @@ pip install SimplestSimulatedAnnealing
 
 ## Idea of method
 
-This is the evolutionary algorithm for *function minimization*. Steps of algorithm:
+This is the evolutionary algorithm for *function minimization*. 
+
+Steps:
 1. We should determine function `f` must be minimized
 2. Determine start solution `x0` (can be random)
 3. Determine mutation function `mut`. This function should give new (can be random) `x1` solution using information about `x0` and temperature `T`.
@@ -361,7 +363,7 @@ model.plot_report(save_as = 'best_subset.png')
 Let's take a look at this task:
 ```
 split set of values {v1, v2, v3, ..., vn} to sets 0, 1, 2, 3
-with their sizes to complete best sets metric
+with their sizes (volumes determined by user) to complete best sets metric
 ```
 One of ways to solve it:
 ```python

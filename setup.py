@@ -10,7 +10,7 @@ setuptools.setup(
     version="1.0.2",
     author="Demetry Pascal",
     author_email="qtckpuhdsa@gmail.com",
-    maintainer = ['Demetry Pascal'],
+    maintainer = 'Demetry Pascal',
     description="Flexible implementation of Simulated Annealing algorithm for function minimization",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -18,7 +18,7 @@ setuptools.setup(
     keywords=['solve', 'optimization', 'problem', 'fast', 'combinatorial', 'easy', 'evolution', 'continual', 'simulated-annealing'],
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries :: Python Modules",
