@@ -6,7 +6,7 @@ version](https://badge.fury.io/py/SimplestSimulatedAnnealing.svg)](https://pypi.
 
 # Simplest simulated annealing
 
-Simplest implementation of simulated annealing method
+Simplest implementation (from [DPEA](https://github.com/PasaOpasen/PasaOpasen.github.io/blob/master/EA_packages.md)) of simulated annealing method
 
 ```
 pip install SimplestSimulatedAnnealing
